@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>fire-event test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../../iron-test-helpers/mock-interactions.html">
+    <link rel="import" href="../fire-event.html">
+  </head>
+  <body>
+
+    <test-fixture id="FireEventFixture">
+      <template>
+        <fire-event></fire-event>
+      </template>
+    </test-fixture>
+
+    <script>
+
+        describe('fire-event', () => {
+            let element;
+            let button;
+
+            beforeEach(() => {
+                element = fixture('FireEventFixture');
+                button = element.shadowRoot.querySelector('button');
+            });
+
+            it('should fire an event when the button is clicked', (done) => {
+                element.addEventListener('my-fired-event', () => {
+                    done();
+                });
+
+                button.click();
+            });
+
+            it('should fire an event when the button is tapped', (done) => {
+                element.addEventListener('my-fired-event', () => {
+                    done();
+                });
+
+                MockInteractions.tap(button);
+            });
+
+            it('should fire two events when the button is tapped twice', () => {
+                const spy = sinon.spy();
+
+                element.addEventListener('my-fired-event', spy);
+
+                MockInteractions.tap(button);
+                MockInteractions.tap(button);
+
+                expect(spy.calledTwice).to.be.true;
+            });
+
+            it('should fire an event with a detail object', (done) => {
+                const MyButtonListener = element.shadowRoot.querySelector('#MyButtonListener');
+
+                element.addEventListener('my-fired-event', (event) => {
+                    expect(event.detail.myDetail).to.be.true;
+                    done();
+                });
+
+                MockInteractions.pressSpace(MyButtonListener);
+            });
+        });
+    </script>
+
+  </body>
+</html>

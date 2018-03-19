@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>templating demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../test/dataHelper.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../paper-toast/paper-toast.html">
+    <link rel="import" href="../templating-demo.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic templating demo</h3>
+      <demo-snippet>
+        <template>
+          <templating-demo id="templating"></templating-demo>
+        </template>
+        <script>
+          window.addEventListener('WebComponentsReady', () => {
+    const templating = document.getElementById('templating');
+
+    templating.hiddenProperty = true;
+    templating.showProperty = true;
+
+    templating.products = getProducts();
+});
+          
+        </script>
+      </demo-snippet>
+    </div>
+  </body>
+</html>

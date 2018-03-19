@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>test-training test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../test-training.html">
+  </head>
+  <body>
+
+    <test-fixture id="BasicTestFixture">
+      <template>
+        <test-training></test-training>
+      </template>
+    </test-fixture>
+
+    <script>
+      describe('test-training', () => {
+          let element;
+
+          beforeEach(() => {
+              element = fixture('BasicTestFixture');
+          });
+
+          it('should instantiate the component', () => {
+              expect(element.constructor.is).to.be.equal('test-training');
+          });
+      });
+    </script>
+
+  </body>
+</html>

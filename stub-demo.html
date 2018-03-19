@@ -1,0 +1,52 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="stub-demo">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    
+    <template is="dom-if" if="[[persons]]">
+      <ul id="persons">
+          <template is="dom-repeat" items="[[persons]]" as="person">
+              <li>[[person.id]] -> [[person.name]]</li>
+          </template>
+      </ul>
+    </template>
+  </template>
+
+  <script>
+    /**
+     * `stub-demo`
+     * Test examples
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/stub-demo.html
+     */
+    class StubDemo extends Polymer.Element {
+        static get is() { return 'stub-demo'; }
+        static get properties() {
+            return {
+                persons: {
+                    type: Array,
+                    value: [],
+                },
+                url: {
+                    type: String,
+                    value: 'http://www.json-generator.com/api/json/get/ceprBrYLCa?indent=2',
+                    observer: 'urlChanged',
+                },
+            };
+        }
+
+        urlChanged(newUrl, oldUrl) {
+            fetch(newUrl).then(response => response.json()).then(persons => this.set('persons', persons));
+        }
+    }
+
+    window.customElements.define(StubDemo.is, StubDemo);
+  </script>
+</dom-module>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>stub-demo test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="dataHelper.js"></script>
+
+    <link rel="import" href="../../iron-test-helpers/mock-interactions.html">
+    <link rel="import" href="../stub-demo.html">
+  </head>
+  <body>
+
+    <test-fixture id="StubDemoFixture">
+      <template>
+        <stub-demo></stub-demo>
+      </template>
+    </test-fixture>
+
+    <script>
+        describe('stub-demo', () => {
+            let element;
+
+            beforeEach(() => {
+                const response = new Response(JSON.stringify(getPersons()), {
+                    status: 200,
+                    headers: {
+                        'Content-type': 'application/json',
+                    },
+                });
+
+                sinon.stub(window, 'fetch');
+
+                fetch.returns(Promise.resolve(response));
+
+                element = fixture('StubDemoFixture');
+            });
+
+            afterEach(() => {
+                fetch.restore();
+            });
+
+            describe('persons', () => {
+                it('should be empty before the component makes the request', () => {
+                    expect(element.persons).to.be.empty;
+                });
+
+                it('should have the expected number of persons after the component makes the request', (done) => {
+                    Polymer.Base.async(() => {
+                        expect(fetch.calledOnce).to.be.true;
+                        expect(element.persons).to.not.be.empty;
+                        expect(element.persons).to.be.deep.equal(getPersons());
+                        done();
+                    }, 100);
+                });
+            });
+        });
+
+        describe('stub-demo v2', () => {
+            let element;
+
+            beforeEach(() => {
+                element = fixture('StubDemoFixture');
+
+                sinon.stub(element, 'urlChanged');
+
+                element.urlChanged.returns(element.set('persons', getPersons()));
+            });
+
+            afterEach(() => {
+                element.urlChanged.restore();
+            });
+
+            describe('persons', () => {
+                it('should have the expected number of persons after the component makes the request', () => {
+                    expect(element.persons).to.not.be.empty;
+                    expect(element.persons).to.be.deep.equal(getPersons());
+                });
+
+                it('should render the persons in the dom', (done) => {
+                    flush(() => {
+                        expect(element.shadowRoot.querySelectorAll('li').length).to.be.equal(getPersons().length);
+                        done();
+                    });
+                });
+            });
+        });
+    </script>
+
+  </body>
+</html>

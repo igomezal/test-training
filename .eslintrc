@@ -1,0 +1,68 @@
+{
+    "extends": "airbnb",
+    "env": {
+        "es6": true,
+        "browser": true,
+        "mocha": true,
+        "jest": true
+    },
+    "plugins": [
+        "html"
+    ],
+    "rules": {
+        "indent": [
+            "error",
+            4
+        ],
+        "max-len": [
+            "warn",
+            {
+                "code": 135
+            }
+        ],
+        "no-underscore-dangle": [
+            "off"
+        ],
+        "class-method-use-this": [
+            "off"
+        ],
+        "no-confusing-arrow": [
+            "error",
+            {
+                "allowParens": true
+            }
+        ],
+        "no-unused-vars": [
+            "warn"
+        ],
+        "comma-dangle": [
+            "error",
+            {
+                "arrays": "always-multiline",
+                "objects": "always-multiline",
+                "imports": "always-multiline",
+                "exports": "always-multiline",
+                "functions": "ignore"
+            }
+        ],
+        "no-unused-expressions": [
+            "error",
+            {
+                "allowShortCircuit": true,
+                "allowTernary": true
+            }
+        ]
+    },
+    "globals": {
+        "Polymer": false,
+        "WCT": false,
+        "fixture": false,
+        "flush": false,
+        "sinon": false,
+        "MockInteractions": false,
+        "getProducts": false,
+        "getPersons": false,
+        "getInnerTextProducts": false,
+        "fireNativeEventToHTMLElement": false
+    }
+}
