@@ -148,12 +148,7 @@ We can use the same API as we did with spies:
 fetch.calledOnce
 ```
 
-
-## Debug
-
-If you need to debug a Suite of tests you will have to use `polymer serve` and access to the concrete test suite (http://127.0.0.1:8081/components/test-training/test/test-training_test.html).
-
-### Testing web components
+## Testing web components
 
 To start testing your web component you should add a `fixture` to your test file:
 
@@ -286,6 +281,10 @@ it('should have the expected number of persons after the component makes the req
     }, 100);
 });
 ```
+
+## Debug
+
+If you need to debug a Suite of tests you will have to use `polymer serve` and access to the concrete test suite (http://127.0.0.1:8081/components/test-training/test/test-training_test.html).
 
 ## More info
 
