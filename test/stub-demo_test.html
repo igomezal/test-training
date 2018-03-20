@@ -57,6 +57,13 @@
                         done();
                     }, 100);
                 });
+
+                it('should render the persons in the dom', (done) => {
+                    Polymer.Base.async(() => {
+                        expect(element.shadowRoot.querySelectorAll('li').length).to.be.equal(getPersons().length);
+                        done();
+                    }, 100);
+                });
             });
         });
 
@@ -76,7 +83,7 @@
             });
 
             describe('persons', () => {
-                it('should have the expected number of persons after the component makes the request', () => {
+                it('should call to the function urlChanged when the component is instantiated', () => {
                     expect(element.persons).to.not.be.empty;
                     expect(element.persons).to.be.deep.equal(getPersons());
                 });

@@ -8,8 +8,8 @@
 
     <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
-    <script src="dataHelper.js"></script>
 
+    <link rel="import" href="../../iron-test-helpers/test-helpers.html">
     <link rel="import" href="../../iron-test-helpers/mock-interactions.html">
     <link rel="import" href="../data-binding.html">
   </head>
@@ -41,7 +41,7 @@
                     const nativeInput = element.shadowRoot.querySelector('#nativeInput');
                     nativeInput.value = nativeValue;
 
-                    fireNativeEventToHTMLElement('input', nativeInput);
+                    TestHelpers.fireEvent('input', {}, nativeInput);
 
                     expect(element.nativeValue).to.be.equal(nativeValue);
                 });
@@ -57,7 +57,7 @@
                         const nativeInputInsideIronInput = element.shadowRoot.querySelector('#nativeInputInsideIronInput');
                         nativeInputInsideIronInput.value = ironValue;
 
-                        fireNativeEventToHTMLElement('input', nativeInputInsideIronInput);
+                        TestHelpers.fireEvent('input', {}, nativeInputInsideIronInput);
 
                         expect(element.ironValue).to.be.equal(ironValue);
                         done();
@@ -72,7 +72,7 @@
 
                     optionToSelect.setAttribute('selected', true);
 
-                    fireNativeEventToHTMLElement('change', mySelect);
+                    TestHelpers.fireEvent('change', {}, mySelect);
 
                     expect(element.selectValue).to.be.equal(selectValue);
                 });
@@ -83,7 +83,7 @@
                     const myInputWithEventHandling = element.shadowRoot.querySelector('#myInputWithEventHandling');
                     myInputWithEventHandling.value = valueEvent;
 
-                    fireNativeEventToHTMLElement('input', myInputWithEventHandling);
+                    TestHelpers.fireEvent('input', {}, myInputWithEventHandling);
 
                     expect(element.valueEvent).to.be.equal(valueEvent);
                 });
@@ -94,12 +94,12 @@
                     const myInputWithEventHandling2 = element.shadowRoot.querySelector('#myInputWithEventHandling2');
                     myInputWithEventHandling2.value = valueEvent2;
 
-                    fireNativeEventToHTMLElement('input', myInputWithEventHandling2);
+                    TestHelpers.fireEvent('input', {}, myInputWithEventHandling2);
 
                     expect(element.valueEvent2).to.be.equal(valueEvent2);
                 });
             });
-        
+
             describe('button', () => {
                 it('should call to _showResultInConsole when it is clicked', (done) => {
                     flush(() => {

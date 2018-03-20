@@ -11,8 +11,3 @@ const getPersons = () => [
 ];
 
 const getInnerTextProducts = products => products.map(product => `${product.id} -> ${product.name}`);
-
-const fireNativeEventToHTMLElement = (nativeEventString, htmlElement) => {
-    const event = new Event(nativeEventString, { bubbles: true, cancelable: true, composed: true });
-    htmlElement.dispatchEvent(event);
-};
