@@ -2,7 +2,7 @@
 
 Test examples
 
-## How can I run run the tests of this project?
+## How can I run the tests of this project?
 
 If you want to use [Polymer CLI](https://www.npmjs.com/package/polymer-cli), you will need to have it installed globally. Then you just have to run `polymer serve`, and access to your reusable components url (something like this: http://127.0.0.1:8081/components/test-training/test/), with this you will run the tests of your components in the opened browser.
 
