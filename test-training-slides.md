@@ -12,10 +12,10 @@ $size: A4
 
 It's a browser-based testing environment with:
 
+* text-fixture
 * Mocha
 * Chai
 * Sinon
-* text-fixture
 
 ---
 
@@ -30,8 +30,7 @@ bower install Polymer/web-component-tester --save
 And then load it in your .html files:
 
 ```html
-<script src="../../web-component-tester/browser.js">
-</script>
+<script src="../../web-component-tester/browser.js"></script>
 ```
 
 - - - 
@@ -141,18 +140,6 @@ describe('button', function(){
 
 ---
 
-# Mocha Hooks Lifecycle
-
-We can use the following functions to make things before or after each test:
-
-* `before(function)`, only runs one time before a suite or spec starts.
-* `beforeEach(function)`, runs everytime before a suite or spec starts.
-* `after(function)`, runs one time after a suite or spec ends.
-*  `afterEach(function)`, runs everytime after a suite or spec ends.
-
-
-----
-
 # Skipping tests in Mocha
 
 If you need to skip some test to debug a specific one you can do it like this:
@@ -172,6 +159,17 @@ xit('should have the class focused', function() {...});
 ```
 
 > This syntax also works with *context* and *specify*
+
+---
+
+# Mocha Hooks Lifecycle
+
+We can use the following functions to make things before or after each test:
+
+* `before(function)`, only runs one time before a suite or spec starts.
+* `beforeEach(function)`, runs everytime before a suite or spec starts.
+* `after(function)`, runs one time after a suite or spec ends.
+*  `afterEach(function)`, runs everytime after a suite or spec ends.
 
 ---
 
@@ -207,7 +205,7 @@ it('should fire two events when the button is tapped twice', () => {
 
 ---
 
-# Sinon's spies
+# Sinon's spies ([API](http://sinonjs.org/releases/v2.4.1/spies/))
 
 Normally, you'll want to spy on a function that already exists.
 
@@ -231,7 +229,7 @@ afterEach(function() {
 
 ---
 
-# Sinon's stubs
+# Sinon's stubs ([API](http://sinonjs.org/releases/v2.4.1/stubs/))
 
 They are similar to sinon's spies but with a custom behavior.
 
