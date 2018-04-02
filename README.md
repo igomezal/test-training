@@ -139,6 +139,45 @@ We can use the same API as we did with spies:
 fetch.calledOnce
 ```
 
+## Sinon's sandbox
+
+Sandboxes help us removing the need to keep track of every spy or stub created in our test, which greatly simplifies the cleanup.
+
+We just have to create the sandbox and save it in a variable to use it later.
+
+```javascript
+let sandbox;
+
+before(() => {
+    sandbox = sinon.sandbox.create();
+});  
+```
+
+Then we just have to restore it after each spec or suite.
+
+```javascript
+afterEach(() => {
+    sandbox.restore();
+});
+```
+
+And then just use it in your specs.
+
+```javascript
+it('should call to _showResultInConsole when it is clicked', (done) => {
+    flush(() => {
+        const button = element.shadowRoot.querySelector('button');
+
+        sandbox.spy(element, '_showResultInConsole');
+
+        MockInteractions.tap(button);
+
+        expect(element._showResultInConsole.calledOnce).to.be.true;
+        done();
+    });
+});
+```
+
 ## Testing web components
 
 To start testing your web component you should add a `fixture` to your test file:
