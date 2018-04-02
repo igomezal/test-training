@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>data-binding test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../../iron-test-helpers/test-helpers.html">
+    <link rel="import" href="../../iron-test-helpers/mock-interactions.html">
+    <link rel="import" href="../data-binding.html">
+  </head>
+  <body>
+
+    <test-fixture id="DataBindingFixture">
+      <template>
+        <data-binding></data-binding>
+      </template>
+    </test-fixture>
+
+    <script>
+        describe('data-binding', () => {
+            const nativeValue = 'Hey, I am a HTML5 input';
+            const ironValue = 'Here, I should see the text of an iron-input';
+            const defaultOption = 'Option1';
+            const selectValue = 'Option3';
+            const valueEvent = 'My custom event text';
+            const valueEvent2 = 'My second custom event text';
+
+            let element;
+            let sandbox;
+
+            before(() => {
+                sandbox = sinon.sandbox.create();
+            });
+
+            beforeEach(() => {
+                element = fixture('DataBindingFixture');
+            });
+
+            afterEach(() => {
+                sandbox.restore();
+            });
+
+            describe('button', () => {
+                it('should call to _showResultInConsole when it is clicked', (done) => {
+                    flush(() => {
+                        const button = element.shadowRoot.querySelector('button');
+
+                        sandbox.spy(element, '_showResultInConsole');
+
+                        MockInteractions.tap(button);
+
+                        expect(element._showResultInConsole.calledOnce).to.be.true;
+                        done();
+                    });
+                });
+            });
+
+            describe('_showResultInConsole', () => {
+                it('should invoke console.log', (done) => {
+                    flush(() => {
+                        sandbox.spy(console, 'log');
+
+                        element.nativeValue = nativeValue;
+                        element.ironValue = ironValue;
+                        element.selectValue = selectValue;
+                        element.valueEvent = valueEvent;
+                        element.valueEvent2 = valueEvent2;
+
+                        element._showResultInConsole();
+
+                        expect(console.log.calledOnce).to.be.true;
+                        expect(console.log.calledWith(nativeValue, ironValue, selectValue, valueEvent, valueEvent2)).to.be.true;
+                        done();
+                    });
+                });
+            });
+        });
+    </script>
+
+  </body>
+</html>

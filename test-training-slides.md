@@ -185,7 +185,7 @@ expect(Array.from(button.classList)).to.include('focused');
 
 ---
 
-# Sinon's spies
+# Sinon's spies ([API](http://sinonjs.org/releases/v2.4.1/spies/))
 
 A test spy is a function that records arguments and returns values for all its calls.
 
@@ -250,6 +250,31 @@ After using it you will have to restore it:
 afterEach(() => {
     fetch.restore();
 });
+```
+
+---
+
+# Sinon's sandbox ([API](http://sinonjs.org/releases/v2.4.1/sandbox/))
+
+With sandbox you will not have to restore every spy and stub manually instead you will be able to only restore the sandbox and it will restore every spy and stub.
+
+```javascript
+let sandbox;
+
+before(() => {
+    sandbox = sinon.sandbox.create();
+});  
+```
+
+
+```javascript
+afterEach(() => {
+    sandbox.restore();
+});
+```
+
+```javascript
+sandbox.spy(element, '_showResultInConsole');
 ```
 
 ---
