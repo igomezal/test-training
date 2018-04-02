@@ -72,24 +72,15 @@ xit('should have the class focused', function() {...});
 A test spy is a function that records arguments, returns values for all its calls.
 
 ```javascript
-describe('_showResultInConsole', () => {
-    it('should invoke console.log', (done) => {
-        flush(() => {
-            console.log = sinon.spy();
+it('should fire two events when the button is tapped twice', () => {
+    const spy = sinon.spy();
 
-            element.nativeValue = nativeValue;
-            element.ironValue = ironValue;
-            element.selectValue = selectValue;
-            element.valueEvent = valueEvent;
-            element.valueEvent2 = valueEvent2;
+    element.addEventListener('my-fired-event', spy);
 
-            element._showResultInConsole();
+    MockInteractions.tap(button);
+    MockInteractions.tap(button);
 
-            expect(console.log.calledOnce).to.be.true;
-            expect(console.log.calledWith(nativeValue, ironValue, selectValue, valueEvent, valueEvent2)).to.be.true;
-            done();
-        });
-    });
+    expect(spy.calledTwice).to.be.true;
 });
 ```
 

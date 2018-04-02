@@ -103,14 +103,14 @@
             describe('button', () => {
                 it('should call to _showResultInConsole when it is clicked', (done) => {
                     flush(() => {
-                        const showResultInConsoleSpy = sinon.spy();
                         const button = element.shadowRoot.querySelector('button');
 
-                        element._showResultInConsole = showResultInConsoleSpy;
+                        sinon.spy(element, '_showResultInConsole');
 
                         MockInteractions.tap(button);
 
-                        expect(showResultInConsoleSpy.calledOnce).to.be.true;
+                        expect(element._showResultInConsole.calledOnce).to.be.true;
+                        element._showResultInConsole.restore();
                         done();
                     });
                 });
@@ -119,7 +119,7 @@
             describe('_showResultInConsole', () => {
                 it('should invoke console.log', (done) => {
                     flush(() => {
-                        console.log = sinon.spy();
+                        sinon.spy(console, 'log');
 
                         element.nativeValue = nativeValue;
                         element.ironValue = ironValue;
@@ -131,6 +131,7 @@
 
                         expect(console.log.calledOnce).to.be.true;
                         expect(console.log.calledWith(nativeValue, ironValue, selectValue, valueEvent, valueEvent2)).to.be.true;
+                        console.log.restore();
                         done();
                     });
                 });
