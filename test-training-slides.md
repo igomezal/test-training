@@ -140,6 +140,22 @@ describe('button', function(){
 
 ---
 
+# Arrow functions in mocha ([API](https://mochajs.org/#arrow-functions))
+
+Mocha discorage the use of arrow functions because lambdas can't access the Mocha context so something like this will fail:
+
+```javascript
+describe('my suite', () => {
+    it('my test', () => {
+        // should set the timeout of this test to 1000 ms; instead will fail
+        this.timeout(1000);
+        assert.ok(true);
+    });
+});
+```
+
+---
+
 # Skipping tests in Mocha ([API](https://mochajs.org/#inclusive-tests))
 
 If you need to skip some test to debug a specific one you can do it like this:
