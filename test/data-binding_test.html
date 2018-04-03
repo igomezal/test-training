@@ -22,7 +22,7 @@
     </test-fixture>
 
     <script>
-        describe('data-binding', () => {
+        describe('data-binding', function() {
             const nativeValue = 'Hey, I am a HTML5 input';
             const ironValue = 'Here, I should see the text of an iron-input';
             const defaultOption = 'Option1';
@@ -32,12 +32,12 @@
 
             let element;
 
-            beforeEach(() => {
+            beforeEach(function() {
                 element = fixture('DataBindingFixture');
             });
 
-            describe('nativeValue', () => {
-                it('should be updated when the user enters a value into the nativeInput', () => {
+            describe('nativeValue', function() {
+                it('should be updated when the user enters a value into the nativeInput', function() {
                     const nativeInput = element.shadowRoot.querySelector('#nativeInput');
                     nativeInput.value = nativeValue;
 
@@ -47,13 +47,13 @@
                 });
             });
 
-            describe('ironValue', () => {
-                it('should be updated when the user enters a value into the ironInput', (done) => {
+            describe('ironValue', function() {
+                it('should be updated when the user enters a value into the ironInput', function(done) {
                     /*
                     *  Initial distribution of children into <slot> is asynchronous (microtask) to creating the shadowRoot,
                     *  meaning distribution occurs after observers are run and ready is called.
                     */
-                    flush(() => {
+                    flush(function() {
                         const nativeInputInsideIronInput = element.shadowRoot.querySelector('#nativeInputInsideIronInput');
                         nativeInputInsideIronInput.value = ironValue;
 
@@ -65,8 +65,8 @@
                 });
             });
 
-            describe('selectValue', () => {
-                it('should be updated when the user selects an option', () => {
+            describe('selectValue', function() {
+                it('should be updated when the user selects an option', function() {
                     const mySelect = element.shadowRoot.querySelector('#mySelect');
                     const optionToSelect = mySelect.querySelector(`option[value="${selectValue}"]`);
 
@@ -78,8 +78,8 @@
                 });
             });
 
-            describe('valueEvent', () => {
-                it('should be updated when the user enters a value into the myInputWithEventHandling input', () => {
+            describe('valueEvent', function() {
+                it('should be updated when the user enters a value into the myInputWithEventHandling input', function() {
                     const myInputWithEventHandling = element.shadowRoot.querySelector('#myInputWithEventHandling');
                     myInputWithEventHandling.value = valueEvent;
 
@@ -89,8 +89,8 @@
                 });
             });
 
-            describe('valueEvent2', () => {
-                it('should be update when the user enters a value into the myInputWithEventHandling2 input', () => {
+            describe('valueEvent2', function() {
+                it('should be update when the user enters a value into the myInputWithEventHandling2 input', function() {
                     const myInputWithEventHandling2 = element.shadowRoot.querySelector('#myInputWithEventHandling2');
                     myInputWithEventHandling2.value = valueEvent2;
 
@@ -100,9 +100,9 @@
                 });
             });
 
-            describe('button', () => {
-                it('should call to _showResultInConsole when it is clicked', (done) => {
-                    flush(() => {
+            describe('button', function() {
+                it('should call to _showResultInConsole when it is clicked', function(done) {
+                    flush(function() {
                         const button = element.shadowRoot.querySelector('button');
 
                         sinon.spy(element, '_showResultInConsole');
@@ -116,9 +116,9 @@
                 });
             });
 
-            describe('_showResultInConsole', () => {
-                it('should invoke console.log', (done) => {
-                    flush(() => {
+            describe('_showResultInConsole', function() {
+                it('should invoke console.log', function(done) {
+                    flush(function() {
                         sinon.spy(console, 'log');
 
                         element.nativeValue = nativeValue;

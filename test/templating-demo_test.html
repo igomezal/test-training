@@ -23,15 +23,15 @@
 
     <script>
 
-        describe('templating-demo', () => {
-            describe('showProperty', () => {
+        describe('templating-demo', function() {
+            describe('showProperty', function() {
                 let element;
-                beforeEach(() => {
+                beforeEach(function() {
                     element = fixture('TemplatingDemoFixture');
                 });
 
-                it('should not show the paragraph showParagraph by default', (done) => {
-                    flush(() => {
+                it('should not show the paragraph showParagraph by default', function(done) {
+                    flush(function() {
                         const showParagraph = element.shadowRoot.querySelector('#showParagraph');
 
                         expect(element.showProperty).to.be.undefined;
@@ -41,10 +41,10 @@
                     });
                 });
 
-                it('should not show the paragraph showParagraph when showProperty is false', (done) => {
+                it('should not show the paragraph showParagraph when showProperty is false', function(done) {
                     element.set('showProperty', false);
 
-                    flush(() => {
+                    flush(function() {
                         const showParagraph = element.shadowRoot.querySelector('#showParagraph');
 
                         expect(element.showProperty).to.be.false;
@@ -54,10 +54,10 @@
                     });
                 });
 
-                it('should show the paragraph showParagraph when showProperty is true', (done) => {
+                it('should show the paragraph showParagraph when showProperty is true', function(done) {
                     element.set('showProperty', true);
 
-                    flush(() => {
+                    flush(function() {
                         const showParagraph = element.shadowRoot.querySelector('#showParagraph');
 
                         expect(element.showProperty).to.be.true;
@@ -68,14 +68,14 @@
                 });
             });
 
-            describe('hiddenProperty', () => {
+            describe('hiddenProperty', function() {
                 let element;
-                beforeEach(() => {
+                beforeEach(function() {
                     element = fixture('TemplatingDemoFixture');
                 });
 
-                it('should not show the noHiddenParagraph by default', (done) => {
-                    flush(() => {
+                it('should not show the noHiddenParagraph by default', function(done) {
+                    flush(function() {
                         const noHiddenParagraph = element.shadowRoot.querySelector('#noHiddenParagraph');
 
                         expect(element.showProperty).to.be.undefined;
@@ -85,10 +85,10 @@
                     });
                 });
 
-                it('should show the paragraph noHiddenParagraph when hiddenProperty is false', (done) => {
+                it('should show the paragraph noHiddenParagraph when hiddenProperty is false', function(done) {
                     element.set('hiddenProperty', false);
 
-                    flush(() => {
+                    flush(function() {
                         const noHiddenParagraph = element.shadowRoot.querySelector('#noHiddenParagraph');
 
                         expect(element.hiddenProperty).to.be.false;
@@ -98,10 +98,10 @@
                     });
                 });
 
-                it('should not show the paragraph noHiddenParagraph when hiddenProperty is true', (done) => {
+                it('should not show the paragraph noHiddenParagraph when hiddenProperty is true', function(done) {
                     element.set('hiddenProperty', true);
 
-                    flush(() => {
+                    flush(function() {
                         const noHiddenParagraph = element.shadowRoot.querySelector('#noHiddenParagraph');
 
                         expect(element.hiddenProperty).to.be.true;
@@ -112,34 +112,34 @@
                 });
             });
 
-            describe('products', () => {
+            describe('products', function() {
                 let element;
-                beforeEach(() => {
+                beforeEach(function() {
                     element = fixture('TemplatingDemoFixture');
                 });
 
-                it('should not show a list of products when there is no products', (done) => {
-                    flush(() => {
+                it('should not show a list of products when there is no products', function(done) {
+                    flush(function() {
                         expect(element.shadowRoot.querySelector('#products')).to.be.null;
                         expect(element.products).to.be.undefined;
                         done();
                     });
                 });
 
-                it('should show a list of products when there are products', (done) => {
+                it('should show a list of products when there are products', function(done) {
                     element.products = getProducts();
 
-                    flush(() => {
+                    flush(function() {
                         expect(element.shadowRoot.querySelector('#products')).to.not.be.null;
                         expect(element.shadowRoot.querySelectorAll('li').length).to.be.equal(getProducts().length);
                         done();
                     });
                 });
 
-                it('should show the expected content in each element of the list', (done) => {
+                it('should show the expected content in each element of the list', function(done) {
                     element.products = getProducts();
 
-                    flush(() => {
+                    flush(function() {
                         const liElements = Array.from(element.shadowRoot.querySelectorAll('li'));
                         const expectedResult = getInnerTextProducts(getProducts());
                         const realResult = liElements.map(liElement => liElement.innerText);

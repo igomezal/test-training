@@ -22,7 +22,7 @@
     </test-fixture>
 
     <script>
-        describe('data-binding', () => {
+        describe('data-binding', function() {
             const nativeValue = 'Hey, I am a HTML5 input';
             const ironValue = 'Here, I should see the text of an iron-input';
             const defaultOption = 'Option1';
@@ -33,21 +33,21 @@
             let element;
             let sandbox;
 
-            before(() => {
+            before(function() {
                 sandbox = sinon.sandbox.create();
             });
 
-            beforeEach(() => {
+            beforeEach(function() {
                 element = fixture('DataBindingFixture');
             });
 
-            afterEach(() => {
+            afterEach(function() {
                 sandbox.restore();
             });
 
-            describe('button', () => {
-                it('should call to _showResultInConsole when it is clicked', (done) => {
-                    flush(() => {
+            describe('button', function() {
+                it('should call to _showResultInConsole when it is clicked', function(done) {
+                    flush(function() {
                         const button = element.shadowRoot.querySelector('button');
 
                         sandbox.spy(element, '_showResultInConsole');
@@ -60,9 +60,9 @@
                 });
             });
 
-            describe('_showResultInConsole', () => {
-                it('should invoke console.log', (done) => {
-                    flush(() => {
+            describe('_showResultInConsole', function() {
+                it('should invoke console.log', function(done) {
+                    flush(function() {
                         sandbox.spy(console, 'log');
 
                         element.nativeValue = nativeValue;

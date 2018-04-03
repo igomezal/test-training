@@ -83,7 +83,7 @@ WCT.loadSuites([
 
 ---
 
-# Test Fixtures
+# Test Fixtures ([API](https://github.com/PolymerElements/test-fixture))
 
 It helps us resetting the test Suite's DOM.
 
@@ -98,14 +98,14 @@ It helps us resetting the test Suite's DOM.
 And then before each test we reset it:
 
 ```javascript
-beforeEach(() => {
+beforeEach(function() {
 	element = fixture('BasicTestFixture');
 });
 ```
 
 ---
 
-# Mocha
+# Mocha ([API](https://mochajs.org/))
 
 We have the following functions to create Suites:
 
@@ -119,7 +119,7 @@ This functions contains one or more Specs which can be defined with:
 
 ---
 
-# Mocha
+# Mocha ([API](https://mochajs.org/#bdd))
 
 >*context* is an alias of *describe* and *specify* is and alias of *it* so we strongly recommend to only use *describe* and *it*.
 
@@ -140,7 +140,7 @@ describe('button', function(){
 
 ---
 
-# Skipping tests in Mocha
+# Skipping tests in Mocha ([API](https://mochajs.org/#inclusive-tests))
 
 If you need to skip some test to debug a specific one you can do it like this:
 
@@ -162,7 +162,7 @@ xit('should have the class focused', function() {...});
 
 ---
 
-# Mocha Hooks Lifecycle
+# Mocha Hooks Lifecycle ([API](https://mochajs.org/#hooks))
 
 We can use the following functions to make things before or after each test:
 
@@ -190,7 +190,7 @@ expect(Array.from(button.classList)).to.include('focused');
 A test spy is a function that records arguments and returns values for all its calls.
 
 ```javascript
-it('should fire two events when the button is tapped twice', () => {
+it('should fire two events when the button is tapped twice', function() {
 
     const spy = sinon.spy();
     
@@ -234,7 +234,7 @@ afterEach(function() {
 They are similar to sinon's spies but with a custom behavior.
 
 ```javascript
-beforeEach(() => {
+beforeEach(function() {
     const response = new Response(JSON.stringify(getPersons()), {...}
     });
 
@@ -247,7 +247,7 @@ beforeEach(() => {
 After using it you will have to restore it:
 
 ```javascript
-afterEach(() => {
+afterEach(function() {
     fetch.restore();
 });
 ```
@@ -261,14 +261,14 @@ With sandbox you will not have to restore every spy and stub manually instead yo
 ```javascript
 let sandbox;
 
-before(() => {
+before(function() {
     sandbox = sinon.sandbox.create();
 });  
 ```
 
 
 ```javascript
-afterEach(() => {
+afterEach(function() {
     sandbox.restore();
 });
 ```
@@ -304,10 +304,10 @@ bower install --save-dev PolymerElements/iron-test-helpers
 When your element mutate (it uses dom-repeat, dom-if or a slot) you will have to wrap your test using `flush` function and mark the spec as an asynchronous one.
 
 ```javascript
-it('should show the paragraph ...', (done) => {
+it('should show the paragraph ...', function(done) {
     element.set('showProperty', true);
 
-    flush(() => {
+    flush(function() {
     	// we get the paragraph
         const showParagraph = element.shadowRoot.querySelector('#showParagraph');
 
@@ -326,8 +326,8 @@ it('should show the paragraph ...', (done) => {
 You can use `Polymer.Base.async` to wait a certain amount of time:
 
 ```javascript
-it('should have the expected number of ...', (done) => {
-    Polymer.Base.async(() => {
+it('should have the expected number of ...', function(done) {
+    Polymer.Base.async(function() {
         expect(fetch.calledOnce).to.be.true;
         expect(element.persons).to.not.be.empty;
         expect(element.persons).to.be.deep.equal(getPersons());

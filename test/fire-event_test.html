@@ -22,32 +22,32 @@
 
     <script>
 
-        describe('fire-event', () => {
+        describe('fire-event', function() {
             let element;
             let button;
 
-            beforeEach(() => {
+            beforeEach(function() {
                 element = fixture('FireEventFixture');
                 button = element.shadowRoot.querySelector('button');
             });
 
-            it('should fire an event when the button is clicked', (done) => {
-                element.addEventListener('my-fired-event', () => {
+            it('should fire an event when the button is clicked', function(done) {
+                element.addEventListener('my-fired-event', function() {
                     done();
                 });
 
                 button.click();
             });
 
-            it('should fire an event when the button is tapped', (done) => {
-                element.addEventListener('my-fired-event', () => {
+            it('should fire an event when the button is tapped', function(done) {
+                element.addEventListener('my-fired-event', function() {
                     done();
                 });
 
                 MockInteractions.tap(button);
             });
 
-            it('should fire two events when the button is tapped twice', () => {
+            it('should fire two events when the button is tapped twice', function() {
                 const spy = sinon.spy();
 
                 element.addEventListener('my-fired-event', spy);
@@ -58,10 +58,10 @@
                 expect(spy.calledTwice).to.be.true;
             });
 
-            it('should fire an event with a detail object', (done) => {
+            it('should fire an event with a detail object', function(done) {
                 const MyButtonListener = element.shadowRoot.querySelector('#MyButtonListener');
 
-                element.addEventListener('my-fired-event', (event) => {
+                element.addEventListener('my-fired-event', function(event) {
                     expect(event.detail.myDetail).to.be.true;
                     done();
                 });

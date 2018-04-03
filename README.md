@@ -49,6 +49,22 @@ describe('button', function(){
 });
 ```
 
+## Arrow function in mocha
+
+Mocha discorage the use of arrow functions because lambdas can't access the Mocha context so something like this will fail:
+
+```javascript
+describe('my suite', () => {
+    it('my test', () => {
+        // should set the timeout of this test to 1000 ms; instead will fail
+        this.timeout(1000);
+        assert.ok(true);
+    });
+});
+```
+
+Official documentation [https://mochajs.org/#arrow-functions](https://mochajs.org/#arrow-functions)
+
 ## Skipping tests
 
 Sometimes you will need to skip some tests because you don't want to run all the test (you need to debug a specific test), you could comment all the unnecessary tests but that's not the correct way to do it.
@@ -72,7 +88,7 @@ xit('should have the class focused', function() {...});
 A test spy is a function that records arguments, returns values for all its calls.
 
 ```javascript
-it('should fire two events when the button is tapped twice', () => {
+it('should fire two events when the button is tapped twice', function() {
     const spy = sinon.spy();
 
     element.addEventListener('my-fired-event', spy);
@@ -109,7 +125,7 @@ afterEach(function() {
 They are like sinon's spies but with a custom behavior.
 
 ```javascript
-beforeEach(() => {
+beforeEach(function() {
     const response = new Response(JSON.stringify(getPersons()), {
         status: 200,
         headers: {
@@ -128,7 +144,7 @@ beforeEach(() => {
 After using it we have to restore it:
 
 ```javascript
-afterEach(() => {
+afterEach(function() {
     fetch.restore();
 });
 ```
@@ -148,7 +164,7 @@ We just have to create the sandbox and save it in a variable to use it later.
 ```javascript
 let sandbox;
 
-before(() => {
+before(function() {
     sandbox = sinon.sandbox.create();
 });  
 ```
@@ -156,7 +172,7 @@ before(() => {
 Then we just have to restore it after each spec or suite.
 
 ```javascript
-afterEach(() => {
+afterEach(function() {
     sandbox.restore();
 });
 ```
@@ -164,8 +180,8 @@ afterEach(() => {
 And then just use it in your specs.
 
 ```javascript
-it('should call to _showResultInConsole when it is clicked', (done) => {
-    flush(() => {
+it('should call to _showResultInConsole when it is clicked', function(done) {
+    flush(function() {
         const button = element.shadowRoot.querySelector('button');
 
         sandbox.spy(element, '_showResultInConsole');
@@ -193,10 +209,10 @@ To start testing your web component you should add a `fixture` to your test file
 And then you will only need to get it using `fixture('BasicTestFixture')`:
 
 ```javascript
-describe('test-training', () => {
+describe('test-training', function() {
     let element;
 
-    beforeEach(() => {
+    beforeEach(function() {
         element = fixture('BasicTestFixture');
     });
 });
@@ -220,8 +236,8 @@ It's a set of utility classes that help us to make tests.
 When you need to test events you can make asynchronous specs or add a spy when you add the event's listener (if the event is fired by an interaction with the user we can use `MockInteractions` to help us with tests):
 
 ```javascript
-it('should fire an event when the button is tapped', (done) => {
-    element.addEventListener('my-fired-event', () => {
+it('should fire an event when the button is tapped', function(done) {
+    element.addEventListener('my-fired-event', function() {
         done();
     });
 
@@ -230,7 +246,7 @@ it('should fire an event when the button is tapped', (done) => {
 ```
 
 ```javascript
-it('should fire an event when the button is tapped', (done) => {
+it('should fire an event when the button is tapped', function(done) {
     const spy = sinon.spy();
 
     element.addEventListener('my-fired-event', spy);
@@ -248,8 +264,8 @@ When you need to test the binding between the value property of an input and the
 Here you can see how it works with the native `<select></select>`:
 
 ```javascript
-describe('selectValue', () => {
-    it('should be updated when the user selects an option', () => {
+describe('selectValue', function() {
+    it('should be updated when the user selects an option', function() {
         const mySelect = element.shadowRoot.querySelector('#mySelect');
         const optionToSelect = mySelect.querySelector(`option[value="${selectValue}"]`);
 
@@ -265,9 +281,9 @@ describe('selectValue', () => {
 And here we use it with the Custom Element `iron-input`:
 
 ```javascript
-describe('ironValue', () => {
-    it('should be updated when the user enters a value into the ironInput', (done) => {
-        flush(() => {
+describe('ironValue', function() {
+    it('should be updated when the user enters a value into the ironInput', function(done) {
+        flush(function() {
             const nativeInputInsideIronInput = element.shadowRoot.querySelector('#nativeInputInsideIronInput');
             nativeInputInsideIronInput.value = ironValue;
 
@@ -285,10 +301,10 @@ describe('ironValue', () => {
 If your element template use a **template repeater (dom-repeat)** or a **conditional-template (dom-if)** or a **slot** or you want to test a shadow DOM mutation then you will have to wrap it with a `flush` function and mark this spec as an asynchronous one.
 
 ```javascript
-it('should show the paragraph showParagraph when showProperty is true', (done) => {
+it('should show the paragraph showParagraph when showProperty is true', function(done) {
     element.set('showProperty', true);
 
-    flush(() => {
+    flush(function() {
         const showParagraph = element.shadowRoot.querySelector('#showParagraph');
 
         expect(element.showProperty).to.be.true;
@@ -302,8 +318,8 @@ it('should show the paragraph showParagraph when showProperty is true', (done) =
 If you need to wait the resolution of a promise, you can use `Polymer.Base.async`.
 
 ```javascript
-it('should have the expected number of persons after the component makes the request', (done) => {
-    Polymer.Base.async(() => {
+it('should have the expected number of persons after the component makes the request', function(done) {
+    Polymer.Base.async(function() {
         expect(fetch.calledOnce).to.be.true;
         expect(element.persons).to.not.be.empty;
         expect(element.persons).to.be.deep.equal(getPersons());
