@@ -24,7 +24,7 @@ It's a browser-based testing environment with:
 You need to load `browser.js` before running your tests, so you need to install it in your project:
 
 ```
-bower install Polymer/web-component-tester --save
+bower install Polymer/web-component-tester --save-dev
 ```
 
 And then load it in your .html files:
