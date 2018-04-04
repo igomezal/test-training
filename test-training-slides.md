@@ -182,10 +182,10 @@ xit('should have the class focused', function() {...});
 
 We can use the following functions to make things before or after each test:
 
-* `before(function)`, only runs one time before a suite or spec starts.
-* `beforeEach(function)`, runs everytime before a suite or spec starts.
-* `after(function)`, runs one time after a suite or spec ends.
-*  `afterEach(function)`, runs everytime after a suite or spec ends.
+* `before(function)`, only runs one time before the first spec starts.
+* `beforeEach(function)`, runs everytime before a spec starts.
+* `after(function)`, runs one time after the last spec ends.
+*  `afterEach(function)`, runs everytime after a spec ends.
 
 ---
 
