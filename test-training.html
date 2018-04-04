@@ -1,15 +1,6 @@
 <link rel="import" href="../polymer/polymer-element.html">
 
 <dom-module id="test-training">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <h2>Hello [[prop1]]!</h2>
-  </template>
-
   <script>
     /**
      * `test-training`
@@ -28,6 +19,16 @@
                     value: 'test-training',
                 },
             };
+        }
+        static get template() {
+            return Polymer.html`
+                <style>
+                    :host {
+                        display: block;
+                    }
+                </style>
+                <h2>Hello [[prop1]]!</h2>
+            `;
         }
     }
 

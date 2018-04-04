@@ -1,29 +1,6 @@
 <link rel="import" href="../polymer/polymer-element.html">
 
 <dom-module id="templating-demo">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <template is="dom-if" if="[[!hiddenProperty]]">
-        <p id="noHiddenParagraph">You can see me because !hiddenProperty is [[!hiddenProperty]]</p>
-    </template>
-
-    <template is="dom-if" if="[[showProperty]]">
-        <p id="showParagraph">You can see me because showProperty is [[showProperty]]</p>
-    </template>
-    
-    <template is="dom-if" if="[[products]]">
-      <ul id="products">
-          <template is="dom-repeat" items="[[products]]" as="product">
-              <li>[[product.id]] -> [[product.name]]</li>
-          </template>
-      </ul>
-    </template>
-  </template>
-
   <script>
     /**
      * `templating-demo`
@@ -41,6 +18,31 @@
                 showProperty: Boolean,
                 products: Array,
             };
+        }
+
+        static get template() {
+            return Polymer.html`
+                <style>
+                    :host {
+                        display: block;
+                    }
+                </style>
+                <template is="dom-if" if="[[!hiddenProperty]]">
+                    <p id="noHiddenParagraph">You can see me because !hiddenProperty is [[!hiddenProperty]]</p>
+                </template>
+
+                <template is="dom-if" if="[[showProperty]]">
+                    <p id="showParagraph">You can see me because showProperty is [[showProperty]]</p>
+                </template>
+
+                <template is="dom-if" if="[[products]]">
+                    <ul id="products">
+                        <template is="dom-repeat" items="[[products]]" as="product">
+                            <li>[[product.id]] -> [[product.name]]</li>
+                        </template>
+                    </ul>
+                </template>
+            `;
         }
     }
 

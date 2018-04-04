@@ -1,17 +1,6 @@
 <link rel="import" href="../polymer/polymer-element.html">
 
 <dom-module id="fire-event">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <!-- on-click is not the same as onclick -->
-    <button on-click="_fireEvent">Fire Event!!!</button>
-    <button id="MyButtonListener">Fire Event from a listener (you can focus me and then press space)!!!</button>
-  </template>
-
   <script>
     /**
      * `fire-event`
@@ -24,6 +13,19 @@
     class FireEvent extends Polymer.Element {
         static get is() { return 'fire-event'; }
 
+        static get template() {
+            return Polymer.html`
+                <style>
+                    :host {
+                        display: block;
+                    }
+                </style>
+                <!-- on-click is not the same as onclick -->
+                <button on-click="_fireEvent">Fire Event!!!</button>
+                <button id="MyButtonListener">Fire Event from a listener (you can focus me and then press space)!!!</button>
+            `;
+        }
+
         connectedCallback() {
             super.connectedCallback();
             this.shadowRoot.querySelector('#MyButtonListener').addEventListener('keydown', this._fireEventWithDetails);
@@ -33,7 +35,7 @@
             super.disconnectedCallback();
             this.shadowRoot.querySelector('#MyButtonListener').removeEventListener('keydown', this._fireEventWithDetails);
         }
-    
+
         _fireEvent() {
             this.dispatchEvent(new CustomEvent('my-fired-event', {
                 bubbles: true,

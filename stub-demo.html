@@ -1,22 +1,6 @@
 <link rel="import" href="../polymer/polymer-element.html">
 
 <dom-module id="stub-demo">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    
-    <template is="dom-if" if="[[persons]]">
-      <ul id="persons">
-          <template is="dom-repeat" items="[[persons]]" as="person">
-              <li>[[person.id]] -> [[person.name]]</li>
-          </template>
-      </ul>
-    </template>
-  </template>
-
   <script>
     /**
      * `stub-demo`
@@ -40,6 +24,24 @@
                     observer: 'urlChanged',
                 },
             };
+        }
+
+        static get template() {
+            return Polymer.html`
+                <style>
+                    :host {
+                        display: block;
+                    }
+                </style>
+
+                <template is="dom-if" if="[[persons]]">
+                    <ul id="persons">
+                        <template is="dom-repeat" items="[[persons]]" as="person">
+                            <li>[[person.id]] -> [[person.name]]</li>
+                        </template>
+                    </ul>
+                </template>
+            `;
         }
 
         urlChanged(newUrl, oldUrl) {

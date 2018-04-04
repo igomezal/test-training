@@ -2,42 +2,6 @@
 <link rel="import" href="../iron-input/iron-input.html">
 
 <dom-module id="data-binding">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-      input, iron-input, select {
-        display: block;
-        margin-bottom: 10px;
-      }
-    </style>
-
-    <label for="nativeInput">Type something</label>
-    <input id="nativeInput" type="text" value="{{nativeValue::input}}">
-
-    <label for="nativeInputInsideIronInput">Type more things</label>
-    <iron-input bind-value="{{ironValue}}">
-      <input id="nativeInputInsideIronInput" type="text" value="{{value1::input}}">
-    </iron-input>
-
-    <label for="mySelect">Select one option</label>
-    <select id="mySelect" value="{{selectValue::change}}">
-      <option value="Option1">Option 1</option>
-      <option value="Option2">Option 2</option>
-      <option value="Option3">Option 3</option>
-      <option value="Option4">Option 4</option>
-    </select>
-
-    <label for="myInputWithEventHandling">Input with event 1</label>
-    <input id="myInputWithEventHandling" on-input="_onInput">
-
-    <label for="myInputWithEventHandling2">Input with event 2</label>
-    <input id="myInputWithEventHandling2">
-    
-    <button on-click="_showResultInConsole">Check the result in console</button>
-  </template>
-
   <script>
     /**
      * `data-binding`
@@ -60,6 +24,44 @@
                 valueEvent: String,
                 valueEvent2: String,
             };
+        }
+
+        static get template() {
+            return Polymer.html`
+                <style>
+                    :host {
+                        display: block;
+                    }
+                    input, iron-input, select {
+                        display: block;
+                        margin-bottom: 10px;
+                    }
+                </style>
+
+                <label for="nativeInput">Type something</label>
+                <input id="nativeInput" type="text" value="{{nativeValue::input}}">
+
+                <label for="nativeInputInsideIronInput">Type more things</label>
+                <iron-input bind-value="{{ironValue}}">
+                    <input id="nativeInputInsideIronInput" type="text" value="{{value1::input}}">
+                </iron-input>
+
+                <label for="mySelect">Select one option</label>
+                <select id="mySelect" value="{{selectValue::change}}">
+                    <option value="Option1">Option 1</option>
+                    <option value="Option2">Option 2</option>
+                    <option value="Option3">Option 3</option>
+                    <option value="Option4">Option 4</option>
+                </select>
+
+                <label for="myInputWithEventHandling">Input with event 1</label>
+                <input id="myInputWithEventHandling" on-input="_onInput">
+
+                <label for="myInputWithEventHandling2">Input with event 2</label>
+                <input id="myInputWithEventHandling2">
+
+                <button on-click="_showResultInConsole">Check the result in console</button>
+            `;
         }
 
         connectedCallback() {
