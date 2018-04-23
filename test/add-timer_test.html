@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>add-timer test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../../iron-test-helpers/mock-interactions.html">
+    <link rel="import" href="../../iron-test-helpers/test-helpers.html">
+    <link rel="import" href="../add-timer.html">
+</head>
+<body>
+    <test-fixture id="AddTimerFixture">
+        <template>
+            <add-timer></add-timer>
+        </template>
+    </test-fixture>
+
+    <script>
+        describe('add-timer', function() {
+            const expectedTimerName = 'Timer 1';
+            const expectedTimerSeconds = 13;
+            let element;
+
+            beforeEach(function() {
+                element = fixture('AddTimerFixture');
+            });
+
+            describe('timerName', function() {
+                it('should change with the value typed inside the input #timername', function() {
+                    const timerNameInput = element.shadowRoot.querySelector('#timername');
+                    timerNameInput.value = expectedTimerName;
+
+                    TestHelpers.fireEvent('input', {}, timerNameInput);
+
+                    expect(expectedTimerName).to.be.equal(element.timerName)
+                });
+            });
+
+            describe('timer', function() {
+                it('should change with the value typed inside the input #timerseconds', function() {
+                    const timerInput = element.shadowRoot.querySelector('#timerseconds');
+                    timerInput.value = expectedTimerSeconds;
+
+                    TestHelpers.fireEvent('input', {}, timerInput);
+
+                    expect(expectedTimerSeconds).to.be.equal(element.timer);
+                });
+            });
+
+            describe('createTimer', function() {
+                beforeEach(function() {
+                    sinon.spy(element, 'createTimer');
+                });
+
+                it('should dispatch an event called add-timer to the parent component when I click on the button #buttonSubmit', function(done){
+                    const button = element.shadowRoot.querySelector('#buttonSubmit');
+
+                    element.timerName = expectedTimerName;
+                    element.timer = expectedTimerSeconds;
+
+                    element.addEventListener('add-timer', function (event) {
+                        expect(element.createTimer.calledOnce).to.be.true;
+                        expect(expectedTimerName).to.be.equal(event.detail.timerName);
+                        expect(expectedTimerSeconds).to.be.equal(event.detail.timer);
+                        done();
+                    });
+
+                    MockInteractions.tap(button);
+                });
+
+                afterEach(function() {
+                    element.createTimer.restore();
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

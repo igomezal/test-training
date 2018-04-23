@@ -4,15 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>templating demo</title>
+    <title>add-timer demo</title>
 
     <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-    <script src="../test/dataHelper.js"></script>
 
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../../paper-toast/paper-toast.html">
-    <link rel="import" href="../templating-demo.html">
+    <link rel="import" href="../add-timer.html">
 
     <custom-style>
       <style is="custom-style" include="demo-pages-shared-styles">
@@ -21,22 +19,11 @@
   </head>
   <body>
     <div class="vertical-section-container centered">
-      <h3>Basic templating demo</h3>
+      <h3>Basic add-timer demo</h3>
       <demo-snippet>
         <template>
-          <templating-demo id="templating"></templating-demo>
+          <add-timer></add-timer>
         </template>
-        <script>
-          window.addEventListener('WebComponentsReady', () => {
-    const templating = document.getElementById('templating');
-
-    templating.hiddenProperty = true;
-    templating.showProperty = true;
-
-    templating.products = getProducts();
-});
-          
-        </script>
       </demo-snippet>
     </div>
   </body>

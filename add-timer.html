@@ -1,0 +1,79 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+
+<!--
+
+-->
+<dom-module id="add-timer">
+    <script>
+        /**
+        * `add-timer`
+        * Component with two inputs to create a timer
+        *
+        * @customElement
+        * @polymerElement
+        * @demo demo/add-timer.html demo
+        **/
+        class AddTimer extends Polymer.Element {
+            static get is() {
+                return 'add-timer';
+            }
+
+            static get properties() {
+                return {
+                    timerName: {
+                        type: String,
+                    },
+                    timer: {
+                        type: Number,
+                    },
+                };
+            }
+
+            static get template() {
+                return Polymer.html`
+                    <style>
+                        label, input, button {
+                            display: block;
+                        }
+                        label, input {
+                            margin-bottom: 5px;
+                        }
+                    </style>
+                    <form on-submit="createTimer">
+                        <label for="timername">Timer's name:</label>
+                        <input id="timername" type="text" on-input="setInputName"/>
+                        <label for="timerseconds">Timer's seconds</label>
+                        <input id="timerseconds" type="number" on-input="setInputTime"/>
+                        <button id="buttonSubmit" type="submit">CREATE</button>
+                    </form>
+                `;
+            }
+
+            setInputName(event) {
+                //this.set('timerName', this.shadowRoot.querySelector('#timername').value);
+                this.set('timerName', event.target.value);
+            }
+
+            setInputTime(event) {
+                //this.set('timer', this.shadowRoot.querySelector('#timerseconds').value);
+                this.set('timer', Number(event.target.value));
+            }
+
+            createTimer(event) {
+                event.preventDefault();
+
+                this.dispatchEvent(new CustomEvent('add-timer', {
+                    bubbles: true,
+                    composed: true,
+                    detail: {
+                        timerName: this.timerName,
+                        timer: this.timer,
+                    }
+                }));
+            }
+        }
+
+        window.customElements.define(AddTimer.is,AddTimer);
+    </script>
+</dom-module>
