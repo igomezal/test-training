@@ -37,7 +37,7 @@
 
                     TestHelpers.fireEvent('input', {}, timerNameInput);
 
-                    expect(expectedTimerName).to.be.equal(element.timerName)
+                    expect(element.timerName).to.be.equal(expectedTimerName)
                 });
             });
 
@@ -48,7 +48,7 @@
 
                     TestHelpers.fireEvent('input', {}, timerInput);
 
-                    expect(expectedTimerSeconds).to.be.equal(element.timer);
+                    expect(element.timer).to.be.equal(expectedTimerSeconds);
                 });
             });
 
@@ -65,8 +65,8 @@
 
                     element.addEventListener('add-timer', function (event) {
                         expect(element.createTimer.calledOnce).to.be.true;
-                        expect(expectedTimerName).to.be.equal(event.detail.timerName);
-                        expect(expectedTimerSeconds).to.be.equal(event.detail.timer);
+                        expect(event.detail.timerName).to.be.equal(expectedTimerName);
+                        expect(event.detail.timer).to.be.equal(expectedTimerSeconds);
                         done();
                     });
 
